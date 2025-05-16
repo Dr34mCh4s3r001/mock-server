@@ -6,7 +6,7 @@ export class FlowExecutor {
     private startId: string
   ) {}
 
-  async run(context: any = {}) {
+  async run(context: any = {}): Promise<any> {
     let currentId = this.startId;
 
     while (currentId) {
@@ -22,5 +22,7 @@ export class FlowExecutor {
         currentId = node.next as string;
       }
     }
+
+    return context.result;
   }
 }
