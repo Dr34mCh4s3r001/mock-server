@@ -1,3 +1,4 @@
+import { exampleJson, generateFromJson, generateNodes } from "./generator/json-flow-spec";
 import { ActionNode } from "./node/action-node";
 import { FlowExecutor } from "./node/flow-executor";
 import { HttpRequestNode } from "./node/http-request-node";
@@ -76,6 +77,20 @@ app.get("/mock/age/:age", async (req: Request, res: Response) => {
   const result = await flow.run();
   res.send(result);
 });
+
+app.get("/test", async (req: Request, res: Response) => {
+  const nodes = generateNodes(exampleJson)(req)
+  const flow = new FlowExecutor(nodes, exampleJson.nodes.find(n => n.type === 'start')!.id);
+  const result = await flow.run();
+  res.send('ok')
+})
+
+app.get("/test_json", async (req: Request, res: Response) => {
+  const nodes = generateFromJson("./flow/example.json")(req)
+  const flow = new FlowExecutor(nodes, exampleJson.nodes.find(n => n.type === 'start')!.id);
+  const result = await flow.run();
+  res.send('ok')
+})
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

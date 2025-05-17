@@ -1,0 +1,20 @@
+{
+    "info": {
+        "name": "Example Flow"
+    },
+    "nodes": [
+        {
+            "id": "GetOTPRequest",
+            "node": "httpRequest",
+            "type": "start",
+            "path": "/otp/new",
+            "next": "ShowStart"
+        },
+        {
+            "id": "ShowStart",
+            "node": "messageNode",
+            "type": "action",
+            "message": "Test Json flow"
+        }
+    ]
+}
