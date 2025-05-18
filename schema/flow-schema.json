@@ -1,0 +1,127 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "FeatureNodeType": {
+            "enum": [
+                "httpRequest",
+                "messageNode"
+            ],
+            "type": "string"
+        },
+        "JsonHttpRequestNode": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "next": {
+                            "type": "string"
+                        },
+                        "node": {
+                            "$ref": "#/definitions/FeatureNodeType"
+                        },
+                        "type": {
+                            "$ref": "#/definitions/NodeType"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "next": {
+                            "type": "string"
+                        },
+                        "node": {
+                            "const": "httpRequest",
+                            "type": "string"
+                        },
+                        "path": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "start",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
+        },
+        "JsonNode": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/JsonHttpRequestNode"
+                },
+                {
+                    "$ref": "#/definitions/MessageNode"
+                }
+            ]
+        },
+        "MessageNode": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "next": {
+                            "type": "string"
+                        },
+                        "node": {
+                            "$ref": "#/definitions/FeatureNodeType"
+                        },
+                        "type": {
+                            "$ref": "#/definitions/NodeType"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "node": {
+                            "const": "messageNode",
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "action",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
+        },
+        "NodeType": {
+            "enum": [
+                "action",
+                "end",
+                "if",
+                "start",
+                "while"
+            ],
+            "type": "string"
+        }
+    },
+    "properties": {
+        "info": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "nodes": {
+            "items": {
+                "$ref": "#/definitions/JsonNode"
+            },
+            "type": "array"
+        }
+    },
+    "type": "object"
+}
+
