@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import { Menu, Puzzle, X } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 import type { LayoutType } from "@/page/Editor";
+import type { Endpoint } from "@/data";
+import EndpointItemLabel from "../endpoint/EndpointItemLabel";
 
 interface EditorNavigatorProps {
   className?: string;
@@ -12,6 +14,7 @@ interface EditorNavigatorProps {
   toggleNodeToolBoxDrawer: () => void;
   selectedLayoutType: LayoutType;
   setSelectedLayoutType: (layoutType: LayoutType) => void;
+  selectedEndpoint: Endpoint | null;
 }
 
 export default function EditorNavigator({
@@ -22,6 +25,7 @@ export default function EditorNavigator({
   toggleNodeToolBoxDrawer,
   selectedLayoutType,
   setSelectedLayoutType,
+  selectedEndpoint,
 }: EditorNavigatorProps) {
   return (
     <nav className={cn("bg-transparent text-white p-4", className)}>
@@ -31,42 +35,48 @@ export default function EditorNavigator({
           <Button variant="outline" size="icon" onClick={toggleEndpointDrawer}>
             {isEndpointDrawerOpen ? <X /> : <Menu />}
           </Button>
-          <div className="space-x-2 flex text-sm">
-            <p className="text-green-300">GET</p>
-            <p>title</p>
-          </div>
+          {selectedEndpoint && (
+            <EndpointItemLabel
+              method={selectedEndpoint.method}
+              path={selectedEndpoint.path}
+            />
+          )}
         </div>
 
         <div className="flex-1"></div>
 
         {/* Layout selector */}
-        <div className="menu-bar">
-          <Tabs
-            defaultValue={selectedLayoutType}
-            onValueChange={(value) =>
-              setSelectedLayoutType(value as LayoutType)
-            }
-          >
-            <TabsList>
-              <TabsTrigger value="visual">Visual</TabsTrigger>
-              <TabsTrigger value="code">Code</TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
+        {selectedEndpoint && (
+          <div className="menu-bar">
+            <Tabs
+              defaultValue={selectedLayoutType}
+              onValueChange={(value) =>
+                setSelectedLayoutType(value as LayoutType)
+              }
+            >
+              <TabsList>
+                <TabsTrigger value="visual">Visual</TabsTrigger>
+                <TabsTrigger value="code">Code</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        )}
 
         <div className="flex-1"></div>
 
         {/* Menu bar */}
-        <div className="menu-bar">
-          <Button>Save</Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={toggleNodeToolBoxDrawer}
-          >
-            {isNodeToolBoxDrawerOpen ? <X /> : <Puzzle />}
-          </Button>
-        </div>
+        {selectedEndpoint && (
+          <div className="menu-bar">
+            <Button>Save</Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleNodeToolBoxDrawer}
+            >
+              {isNodeToolBoxDrawerOpen ? <X /> : <Puzzle />}
+            </Button>
+          </div>
+        )}
       </div>
     </nav>
   );

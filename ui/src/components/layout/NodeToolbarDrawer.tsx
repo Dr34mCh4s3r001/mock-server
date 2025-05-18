@@ -1,32 +1,10 @@
-import { Puzzle } from "lucide-react";
+import { NODE_TOOL } from "@/data";
 import NodeItem from "../node/NodeItem";
 
 interface NodeToolboxDrawerProps {
   isOpen: boolean;
   toggle: () => void;
 }
-
-interface NodeTool {
-  icon: React.ReactNode;
-  title: string;
-  type: string;
-  description: string;
-}
-
-const NODE_TOOL: NodeTool[] = [
-  {
-    icon: <Puzzle />,
-    title: "Input",
-    type: "input",
-    description: "Data received for processing in this node",
-  },
-  {
-    icon: <Puzzle />,
-    title: "Output",
-    type: "output",
-    description: "Data produced after processing by this node",
-  },
-];
 
 export default function NodeToolboxDrawer({ isOpen }: NodeToolboxDrawerProps) {
   const onDragStart = (
@@ -46,7 +24,6 @@ export default function NodeToolboxDrawer({ isOpen }: NodeToolboxDrawerProps) {
         <h2 className="font-semibold">Node toolbox</h2>
       </div>
 
-      {/* Drawer content */}
       {NODE_TOOL.map((node) => (
         <div
           key={node.type}
@@ -54,10 +31,9 @@ export default function NodeToolboxDrawer({ isOpen }: NodeToolboxDrawerProps) {
           onDragStart={(event) => onDragStart(event, node.type)}
         >
           <NodeItem
-            // key={type}
             title={node.title}
             description={node.description}
-            icon={node.icon} // Pass the Puzzle icon as a prop
+            icon={node.icon}
           ></NodeItem>
         </div>
       ))}

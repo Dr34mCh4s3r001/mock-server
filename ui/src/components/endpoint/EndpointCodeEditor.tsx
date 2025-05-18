@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Editor } from "@monaco-editor/react";
 
 interface EndpointCodeEditorProps {
@@ -38,11 +39,12 @@ export default function EndpointCodeEditor({
 }: EndpointCodeEditorProps) {
   return (
     <div className="h-screen bg-white">
-      <Editor
-        className={`mt-${editorMargin}`}
-        defaultLanguage="json"
-        defaultValue={JSON.stringify(JSON_EXAMPLE, null, 2)}
-      />
+      <div className="h-full w-full" style={{ marginTop: editorMargin }}>
+        <Editor
+          defaultLanguage="json"
+          defaultValue={JSON.stringify(JSON_EXAMPLE, null, 2)}
+        />
+      </div>
     </div>
   );
 }
