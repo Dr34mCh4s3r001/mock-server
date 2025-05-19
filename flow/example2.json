@@ -1,0 +1,28 @@
+{
+    "$schema": "../schema/flow-schema.json",
+    "info": {
+        "name": "Example Two"
+    },
+    "nodes": [
+        {
+            "id": "TestWebHook",
+            "node": "httpRequest",
+            "type": "start",
+            "path": "/otp/two",
+            "next": "ShowStart"
+        },
+        {
+            "id": "ShowStart",
+            "node": "messageNode",
+            "type": "action",
+            "message": "Test Json flow",
+            "next": "NextStep"
+        },
+        {
+            "id": "NextStep",
+            "node": "messageNode",
+            "type": "action",
+            "message": "Second Action"
+        }
+    ]
+}

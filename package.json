@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "gen-schema": "npx typescript-json-schema src/generator/json-flow-spec.ts JsonFlowSpec -o schema/flow-schema.json"
+    "gen-schema": "npx typescript-json-schema src/generator/json-flow-spec.ts JsonFlowSpec -o schema/flow-schema.json",
+    "gen-server" : "ts-node-dev src/gen-server.ts"
   },
   "keywords": [],
   "author": "",

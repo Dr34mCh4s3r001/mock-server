@@ -25,10 +25,15 @@ export const exampleJson: JsonFlowSpec = {
 // generator
 const fs = require('fs');
 
-export function generateFromJson(filePath: string) {
+export function readFlowSpec(filePath: string){
     const raw = fs.readFileSync(filePath, 'utf-8');
-    const json = JSON.parse(raw);
-    const nodesFlow = generateNodes(json)
+    const json = JSON.parse(raw) as JsonFlowSpec;
+    return json
+}
+
+export function generateFromJson(filePath: string) {
+    const spec = readFlowSpec(filePath)
+    const nodesFlow = generateNodes(spec)
     return nodesFlow
 }
 
@@ -68,7 +73,7 @@ type JsonNode = JsonHttpRequestNode | MessageNode
 type FeatureNodeType = 'httpRequest' | 'messageNode'
 
 // Core
-type JsonFlowSpec = {
+export type JsonFlowSpec = {
     info: FlowInfo
     nodes: JsonNode[]
 }

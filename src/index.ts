@@ -1,4 +1,5 @@
 import { exampleJson, generateFromJson, generateNodes } from "./generator/json-flow-spec";
+import { router as httpReqFlowRouter } from "./http-req-flow-routes";
 import { ActionNode } from "./node/action-node";
 import { FlowExecutor } from "./node/flow-executor";
 import { HttpRequestNode } from "./node/http-request-node";
@@ -91,6 +92,8 @@ app.get("/test_json", async (req: Request, res: Response) => {
   const result = await flow.run();
   res.send('ok')
 })
+
+app.use("/", httpReqFlowRouter)
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
