@@ -4,7 +4,18 @@
         "FeatureNodeType": {
             "enum": [
                 "httpRequest",
+                "jsonHttpResponse",
                 "messageNode"
+            ],
+            "type": "string"
+        },
+        "HTTPMethod": {
+            "enum": [
+                "DELETE",
+                "GET",
+                "PATCH",
+                "POST",
+                "PUT"
             ],
             "type": "string"
         },
@@ -29,14 +40,22 @@
                 },
                 {
                     "properties": {
+                        "config": {
+                            "properties": {
+                                "method": {
+                                    "$ref": "#/definitions/HTTPMethod"
+                                },
+                                "path": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "next": {
                             "type": "string"
                         },
                         "node": {
                             "const": "httpRequest",
-                            "type": "string"
-                        },
-                        "path": {
                             "type": "string"
                         },
                         "type": {
@@ -48,13 +67,63 @@
                 }
             ]
         },
+        "JsonHttpResponseNode": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "next": {
+                            "type": "string"
+                        },
+                        "node": {
+                            "$ref": "#/definitions/FeatureNodeType"
+                        },
+                        "type": {
+                            "$ref": "#/definitions/NodeType"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "config": {
+                            "properties": {
+                                "httpStatus": {
+                                    "type": "number"
+                                },
+                                "json": {
+                                    "additionalProperties": true,
+                                    "properties": {},
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "node": {
+                            "const": "jsonHttpResponse",
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "action",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
+        },
         "JsonNode": {
             "anyOf": [
+                {
+                    "$ref": "#/definitions/MessageNode"
+                },
                 {
                     "$ref": "#/definitions/JsonHttpRequestNode"
                 },
                 {
-                    "$ref": "#/definitions/MessageNode"
+                    "$ref": "#/definitions/JsonHttpResponseNode"
                 }
             ]
         },
@@ -100,8 +169,7 @@
                 "action",
                 "end",
                 "if",
-                "start",
-                "while"
+                "start"
             ],
             "type": "string"
         }

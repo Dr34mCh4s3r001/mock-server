@@ -8,7 +8,10 @@
             "id": "TestWebHook",
             "node": "httpRequest",
             "type": "start",
-            "path": "/otp/two",
+            "config": {
+                "method": "GET",
+                "path": "/otp/two"
+            },
             "next": "ShowStart"
         },
         {

@@ -1,4 +1,5 @@
 import { exampleJson, generateFromJson, generateNodes } from "./generator/json-flow-spec";
+import { httpFlowResolver, reloadHttpReqFlowCache } from "./http-flow";
 import { router as httpReqFlowRouter } from "./http-req-flow-routes";
 import { ActionNode } from "./node/action-node";
 import { FlowExecutor } from "./node/flow-executor";
@@ -79,21 +80,15 @@ app.get("/mock/age/:age", async (req: Request, res: Response) => {
   res.send(result);
 });
 
-app.get("/test", async (req: Request, res: Response) => {
-  const nodes = generateNodes(exampleJson)(req)
-  const flow = new FlowExecutor(nodes, exampleJson.nodes.find(n => n.type === 'start')!.id);
-  const result = await flow.run();
-  res.send('ok')
+app.get("/reload_cache", async(req: Request, res: Response)=>{
+  reloadHttpReqFlowCache()
+  res.status(200).send('Reload done')
 })
 
-app.get("/test_json", async (req: Request, res: Response) => {
-  const nodes = generateFromJson("./flow/example.json")(req)
-  const flow = new FlowExecutor(nodes, exampleJson.nodes.find(n => n.type === 'start')!.id);
-  const result = await flow.run();
-  res.send('ok')
+// app.use("/", httpReqFlowRouter)
+app.use("/", async (req, res) => {
+  await httpFlowResolver(req, res)
 })
-
-app.use("/", httpReqFlowRouter)
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

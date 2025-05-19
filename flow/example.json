@@ -8,21 +8,37 @@
             "id": "GetOTPRequest",
             "node": "httpRequest",
             "type": "start",
-            "path": "/otp/new",
+            "config": {
+                "path": "/otp/new",
+                "method": "GET"
+            },
             "next": "ShowStart"
         },
         {
             "id": "ShowStart",
             "node": "messageNode",
             "type": "action",
-            "message": "Test Json flow",
+            "message": "Test Json flow first action",
             "next": "NextStep"
         },
         {
             "id": "NextStep",
             "node": "messageNode",
             "type": "action",
-            "message": "Second Action"
+            "message": "Second Action",
+            "next": "mockResOTP"
+        },
+        {
+            "id": "mockResOTP",
+            "node": "jsonHttpResponse",
+            "type": "action",
+            "config": {
+                "httpStatus": 201,
+                "json": {
+                    "ref": "ADDBB",
+                    "session": "sdkfjeln"
+                }
+            }
         }
     ]
 }
