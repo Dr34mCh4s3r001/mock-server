@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "gen-schema": "npx typescript-json-schema src/generator/json-flow-spec.ts JsonFlowSpec -o schema/flow-schema.json",
-    "gen-server" : "ts-node-dev src/gen-server.ts"
+    "gen-server": "ts-node-dev src/gen-server.ts && npm run ignore-generated",
+    "ignore-generated": "git update-index --assume-unchanged src/http-req-flow-routes.ts"
   },
   "keywords": [],
   "author": "",
