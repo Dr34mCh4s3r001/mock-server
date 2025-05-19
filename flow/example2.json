@@ -10,7 +10,7 @@
             "type": "start",
             "config": {
                 "method": "GET",
-                "path": "/otp/two"
+                "path": "/otp/two/:id"
             },
             "next": "ShowStart"
         },
@@ -25,7 +25,20 @@
             "id": "NextStep",
             "node": "messageNode",
             "type": "action",
-            "message": "Second Action"
+            "message": "Second Action",
+            "next": "mockResOTP"
+        },
+        {
+            "id": "mockResOTP",
+            "node": "jsonHttpResponse",
+            "type": "action",
+            "config": {
+                "httpStatus": 201,
+                "json": {
+                    "ref": "ADDBB",
+                    "session": "otptwo"
+                }
+            }
         }
     ]
 }
