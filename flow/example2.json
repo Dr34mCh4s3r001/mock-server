@@ -6,7 +6,7 @@
     "nodes": [
         {
             "id": "TestWebHook",
-            "node": "httpRequest",
+            "node": "http-request",
             "type": "start",
             "config": {
                 "method": "GET",
@@ -16,21 +16,16 @@
         },
         {
             "id": "ShowStart",
-            "node": "messageNode",
+            "node": "log-console",
             "type": "action",
-            "message": "Test Json flow",
-            "next": "NextStep"
-        },
-        {
-            "id": "NextStep",
-            "node": "messageNode",
-            "type": "action",
-            "message": "Second Action",
+            "config": {
+                "message": "This is flow 2"
+            },
             "next": "IfIdExist"
         },
         {
             "id": "IfIdExist",
-            "node": "ifNode",
+            "node": "cond-string-eval",
             "type": "condition",
             "config": {
                 "ctxEvalFunc": "ctx.pathParams.id === '1' ? 'RespondSuccess' : 'RespondError'",
@@ -42,7 +37,7 @@
         },
         {
             "id": "RespondSuccess",
-            "node": "jsonHttpResponse",
+            "node": "http-json-res",
             "type": "action",
             "config": {
                 "httpStatus": 201,
@@ -52,9 +47,9 @@
                 }
             }
         },
-                {
+        {
             "id": "RespondError",
-            "node": "jsonHttpResponse",
+            "node": "http-json-res",
             "type": "action",
             "config": {
                 "httpStatus": 400,

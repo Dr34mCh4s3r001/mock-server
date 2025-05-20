@@ -6,7 +6,7 @@
     "nodes": [
         {
             "id": "GetOTPRequest",
-            "node": "httpRequest",
+            "node": "http-request",
             "type": "start",
             "config": {
                 "path": "/otp/new",
@@ -16,21 +16,16 @@
         },
         {
             "id": "ShowStart",
-            "node": "messageNode",
+            "node": "log-console",
             "type": "action",
-            "message": "Test Json flow first action",
-            "next": "NextStep"
-        },
-        {
-            "id": "NextStep",
-            "node": "messageNode",
-            "type": "action",
-            "message": "Second Action",
+            "config": {
+                "message": "This is example"
+            },
             "next": "mockResOTP"
         },
         {
             "id": "mockResOTP",
-            "node": "jsonHttpResponse",
+            "node": "http-json-res",
             "type": "action",
             "config": {
                 "httpStatus": 201,

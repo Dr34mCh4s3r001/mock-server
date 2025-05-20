@@ -1,12 +1,12 @@
-import { NodeId } from "./json-flow-spec";
-import { NodeType, WorkFlowNode } from "./node";
+
+import { NodeId, NodeType, WorkFlowNode } from "./node";
 
 export class ConditionNode implements WorkFlowNode {
     public readonly type: NodeType = "condition";
 
     constructor(
         public id: string,
-        public next: string[] | string , // this will be string after resolved
+        public next:  string  | string[] , // this will be string after resolved
         private condition: (context: any) => Promise<NodeId>
     ) { }
 

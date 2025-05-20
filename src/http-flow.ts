@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 import fs from "fs"
 import path from "path";
-import { containNodes, generateNodes, JsonFlowSpec, readFlowSpec } from "./node/json-flow-spec";
+import { FlowSpec, generateFlow, readFlowSpec } from "./node/flow";
 import { FlowExecutor } from "./node/flow-executor";
-import { HTTPMethod } from "./node/http-request-node";
 import { match } from "path-to-regexp";
+import { HTTPMethod } from "./utils/types";
+import { containNode } from "./node/features";
 
 const cwd = process.cwd();
 
 const FLOW_DIR_PATH = cwd + (process.env.FLOW_DIR_PATH ?? "/flow")
 console.log('finding flow in ', FLOW_DIR_PATH)
 
-let httpFlowSpecCache: JsonFlowSpec[] = []
+let httpFlowSpecCache: FlowSpec[] = []
 httpFlowSpecCache = populateHttpReqFlow()
 console.log(httpFlowSpecCache)
 
@@ -30,13 +31,12 @@ export async function httpFlowResolver(req: Request, res: Response) {
         res.status(404).send('Cannot find flow match the path and/or method')
         return
     }
-    const flow = flowSearch[0]
-    console.log('search flow result: ', flow)
-    // special for http need to supply req
-    const nodes = generateNodes(flow)(req)
-    const startNode = flow.nodes.find(n => n.type === 'start')!
+    const flowSpec = flowSearch[0]
+    console.log('search flow result: ', flowSpec.info)
+    const flow = generateFlow(flowSpec)
+    const startNode = flowSpec.nodes.find(n => n.type === 'start')!
     // console.log('generated nodes:', nodes)
-    const flowEx = new FlowExecutor(nodes, startNode.id);
+    const flowEx = new FlowExecutor(flow, startNode.id);
     const pathParams = getPathParams(startNode.config.path, reqPath)
     const context = { req, pathParams, res }
     const result = await flowEx.run(context);
@@ -51,7 +51,7 @@ function populateHttpReqFlow() {
     console.log('found flow jsons:', jsonFlows.length)
     const httpRequestFlow = jsonFlows
         .map(readFlowSpec)
-        .filter(f => containNodes('httpRequest', f.nodes))
+        .filter(f => containNode('http-request', f.nodes))
     console.log('http flow populated:', httpRequestFlow.length)
     return httpRequestFlow
 }
@@ -64,9 +64,9 @@ function getJsonFlows(dirPath: string): string[] {
     return jsonFlows
 }
 
-function findMatchPath(method: HTTPMethod, path: string, spec: JsonFlowSpec): boolean {
+function findMatchPath(method: HTTPMethod, path: string, spec: FlowSpec): boolean {
     const result = spec.nodes
-        .filter(n => n.node === "httpRequest")
+        .filter(n => n.node === "http-request")
         // .map(n => { console.log(n); return n })
         .filter(n => matchPath(n.config.path, path) && n.config.method === method)
     return result.length === 1 ? true : false
@@ -77,15 +77,15 @@ function last(arr: any[]) {
 }
 
 function matchPath(template: string, path: string): boolean {
-  const matcher = match(template, { decode: decodeURIComponent });
-  const result = matcher(path);
-  if (!result) return false;
-  return true
+    const matcher = match(template, { decode: decodeURIComponent });
+    const result = matcher(path);
+    if (!result) return false;
+    return true
 }
 
 function getPathParams(template: string, path: string): null | Record<string, string> {
-  const matcher = match(template, { decode: decodeURIComponent });
-  const result = matcher(path);
-  if (!result) return null;
-  return result.params as Record<string, string>;
+    const matcher = match(template, { decode: decodeURIComponent });
+    const result = matcher(path);
+    if (!result) return null;
+    return result.params as Record<string, string>;
 }

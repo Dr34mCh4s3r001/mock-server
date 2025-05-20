@@ -1,26 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
-        "FeatureNodeType": {
-            "enum": [
-                "httpRequest",
-                "ifNode",
-                "jsonHttpResponse",
-                "messageNode"
-            ],
-            "type": "string"
-        },
-        "HTTPMethod": {
-            "enum": [
-                "DELETE",
-                "GET",
-                "PATCH",
-                "POST",
-                "PUT"
-            ],
-            "type": "string"
-        },
-        "IfNodeV2": {
+        "ConsoleLogSpec": {
             "allOf": [
                 {
                     "properties": {
@@ -29,9 +10,6 @@
                         },
                         "next": {
                             "type": "string"
-                        },
-                        "node": {
-                            "$ref": "#/definitions/FeatureNodeType"
                         },
                         "type": {
                             "$ref": "#/definitions/NodeType"
@@ -43,24 +21,18 @@
                     "properties": {
                         "config": {
                             "properties": {
-                                "ctxEvalFunc": {
+                                "message": {
                                     "type": "string"
-                                },
-                                "nextNodes": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array"
                                 }
                             },
                             "type": "object"
                         },
                         "node": {
-                            "const": "ifNode",
+                            "const": "log-console",
                             "type": "string"
                         },
                         "type": {
-                            "const": "condition",
+                            "const": "action",
                             "type": "string"
                         }
                     },
@@ -68,7 +40,33 @@
                 }
             ]
         },
-        "JsonHttpRequestNode": {
+        "FeatureNodeSpec": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/StringEvalSpec"
+                },
+                {
+                    "$ref": "#/definitions/HttpJsonResSpec"
+                },
+                {
+                    "$ref": "#/definitions/ConsoleLogSpec"
+                },
+                {
+                    "$ref": "#/definitions/HttpRequestSpec"
+                }
+            ]
+        },
+        "HTTPMethod": {
+            "enum": [
+                "DELETE",
+                "GET",
+                "PATCH",
+                "POST",
+                "PUT"
+            ],
+            "type": "string"
+        },
+        "HttpJsonResSpec": {
             "allOf": [
                 {
                     "properties": {
@@ -78,8 +76,49 @@
                         "next": {
                             "type": "string"
                         },
+                        "type": {
+                            "$ref": "#/definitions/NodeType"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "config": {
+                            "properties": {
+                                "httpStatus": {
+                                    "type": "number"
+                                },
+                                "json": {
+                                    "additionalProperties": true,
+                                    "properties": {},
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "node": {
-                            "$ref": "#/definitions/FeatureNodeType"
+                            "const": "http-json-res",
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "action",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
+        },
+        "HttpRequestSpec": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "next": {
+                            "type": "string"
                         },
                         "type": {
                             "$ref": "#/definitions/NodeType"
@@ -104,7 +143,7 @@
                             "type": "string"
                         },
                         "node": {
-                            "const": "httpRequest",
+                            "const": "http-request",
                             "type": "string"
                         },
                         "type": {
@@ -116,7 +155,15 @@
                 }
             ]
         },
-        "JsonHttpResponseNode": {
+        "NodeType": {
+            "enum": [
+                "action",
+                "condition",
+                "start"
+            ],
+            "type": "string"
+        },
+        "StringEvalSpec": {
             "allOf": [
                 {
                     "properties": {
@@ -125,9 +172,6 @@
                         },
                         "next": {
                             "type": "string"
-                        },
-                        "node": {
-                            "$ref": "#/definitions/FeatureNodeType"
                         },
                         "type": {
                             "$ref": "#/definitions/NodeType"
@@ -139,92 +183,30 @@
                     "properties": {
                         "config": {
                             "properties": {
-                                "httpStatus": {
-                                    "type": "number"
+                                "ctxEvalFunc": {
+                                    "type": "string"
                                 },
-                                "json": {
-                                    "additionalProperties": true,
-                                    "properties": {},
-                                    "type": "object"
+                                "nextNodes": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
                                 }
                             },
                             "type": "object"
                         },
                         "node": {
-                            "const": "jsonHttpResponse",
+                            "const": "cond-string-eval",
                             "type": "string"
                         },
                         "type": {
-                            "const": "action",
+                            "const": "condition",
                             "type": "string"
                         }
                     },
                     "type": "object"
                 }
             ]
-        },
-        "JsonNode": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/MessageNode"
-                },
-                {
-                    "$ref": "#/definitions/JsonHttpRequestNode"
-                },
-                {
-                    "$ref": "#/definitions/JsonHttpResponseNode"
-                },
-                {
-                    "$ref": "#/definitions/IfNodeV2"
-                }
-            ]
-        },
-        "MessageNode": {
-            "allOf": [
-                {
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "next": {
-                            "type": "string"
-                        },
-                        "node": {
-                            "$ref": "#/definitions/FeatureNodeType"
-                        },
-                        "type": {
-                            "$ref": "#/definitions/NodeType"
-                        }
-                    },
-                    "type": "object"
-                },
-                {
-                    "properties": {
-                        "message": {
-                            "type": "string"
-                        },
-                        "node": {
-                            "const": "messageNode",
-                            "type": "string"
-                        },
-                        "type": {
-                            "const": "action",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                }
-            ]
-        },
-        "NodeType": {
-            "enum": [
-                "action",
-                "condition",
-                "end",
-                "if",
-                "start"
-            ],
-            "type": "string"
         }
     },
     "properties": {
@@ -238,7 +220,7 @@
         },
         "nodes": {
             "items": {
-                "$ref": "#/definitions/JsonNode"
+                "$ref": "#/definitions/FeatureNodeSpec"
             },
             "type": "array"
         }

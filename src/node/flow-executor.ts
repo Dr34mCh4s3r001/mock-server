@@ -1,8 +1,8 @@
-import { WorkFlowNode } from "./node";
+import { NodesFlow } from "./flow";
 
 export class FlowExecutor {
   constructor(
-    private nodes: Record<string, WorkFlowNode>,
+    private nodes: NodesFlow,
     private startId: string
   ) {}
 
@@ -10,17 +10,14 @@ export class FlowExecutor {
     let currentId = this.startId;
 
     while (currentId) {
+      console.log(`running node: `, currentId)
       const node = this.nodes[currentId];
       if (!node) throw new Error(`Node not found: ${currentId}`);
 
       await node.evaluate(context);
-
-      if (node.type === "if") {
-        const branchIndex = context.__branch; // 0 or 1
-        currentId = (node.next as string[])[branchIndex];
-      } else {
-        currentId = node.next as string;
-      }
+      if(!node.next) break;
+      if(typeof node.next !== 'string') throw new Error(`condition node must have error logic at ${currentId}`)
+      currentId = node.next
     }
 
     return context.result;
