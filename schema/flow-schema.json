@@ -4,6 +4,7 @@
         "FeatureNodeType": {
             "enum": [
                 "httpRequest",
+                "ifNode",
                 "jsonHttpResponse",
                 "messageNode"
             ],
@@ -18,6 +19,54 @@
                 "PUT"
             ],
             "type": "string"
+        },
+        "IfNodeV2": {
+            "allOf": [
+                {
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "next": {
+                            "type": "string"
+                        },
+                        "node": {
+                            "$ref": "#/definitions/FeatureNodeType"
+                        },
+                        "type": {
+                            "$ref": "#/definitions/NodeType"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "config": {
+                            "properties": {
+                                "ctxEvalFunc": {
+                                    "type": "string"
+                                },
+                                "nextNodes": {
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "node": {
+                            "const": "ifNode",
+                            "type": "string"
+                        },
+                        "type": {
+                            "const": "condition",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ]
         },
         "JsonHttpRequestNode": {
             "allOf": [
@@ -124,6 +173,9 @@
                 },
                 {
                     "$ref": "#/definitions/JsonHttpResponseNode"
+                },
+                {
+                    "$ref": "#/definitions/IfNodeV2"
                 }
             ]
         },
@@ -167,6 +219,7 @@
         "NodeType": {
             "enum": [
                 "action",
+                "condition",
                 "end",
                 "if",
                 "start"

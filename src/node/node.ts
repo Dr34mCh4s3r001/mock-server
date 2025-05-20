@@ -1,4 +1,4 @@
-export type NodeType = "start" | "if" | "action" | "end";
+export type NodeType = "start" | "if" | "action" | "end" | "condition";
 
 export interface WorkFlowNode {
   id: string;

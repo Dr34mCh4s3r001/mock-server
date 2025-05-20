@@ -26,10 +26,22 @@
             "node": "messageNode",
             "type": "action",
             "message": "Second Action",
-            "next": "mockResOTP"
+            "next": "IfIdExist"
         },
         {
-            "id": "mockResOTP",
+            "id": "IfIdExist",
+            "node": "ifNode",
+            "type": "condition",
+            "config": {
+                "ctxEvalFunc": "ctx.pathParams.id === '1' ? 'RespondSuccess' : 'RespondError'",
+                "nextNodes": [
+                    "RespondSuccess",
+                    "RespondError"
+                ]
+            }
+        },
+        {
+            "id": "RespondSuccess",
             "node": "jsonHttpResponse",
             "type": "action",
             "config": {
@@ -37,6 +49,17 @@
                 "json": {
                     "ref": "ADDBB",
                     "session": "otptwo"
+                }
+            }
+        },
+                {
+            "id": "RespondError",
+            "node": "jsonHttpResponse",
+            "type": "action",
+            "config": {
+                "httpStatus": 400,
+                "json": {
+                    "code": "BANNED_ID"
                 }
             }
         }

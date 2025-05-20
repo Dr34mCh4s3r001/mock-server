@@ -2,6 +2,7 @@ import { NodeType } from "./node"
 import { MessageNode, newMessageNode } from "./message-node"
 import { JsonHttpRequestNode, newHttpRequestFlow } from "./http-request-node";
 import { JsonHttpResponseNode, newJsonHttpResponse } from "./http-response-node";
+import { IfNodeV2, newIfNodeV2 } from "./if-node-v2";
 
 // generator
 const fs = require('fs');
@@ -52,12 +53,13 @@ type NodeGeneratorMap = Record<FeatureNodeType, any>
 export const NodeGenerator: NodeGeneratorMap = {
     httpRequest: newHttpRequestFlow,
     messageNode: newMessageNode,
-    jsonHttpResponse: newJsonHttpResponse
+    jsonHttpResponse: newJsonHttpResponse,
+    ifNode:  newIfNodeV2
 }
 
-type JsonNode = JsonHttpRequestNode | MessageNode | JsonHttpResponseNode
+type JsonNode = JsonHttpRequestNode | MessageNode | JsonHttpResponseNode | IfNodeV2
 // tried let ts compiler handle the feature type aggregration but it's not working well for generator type safety
-type FeatureNodeType = 'httpRequest' | 'messageNode' | 'jsonHttpResponse'
+type FeatureNodeType = 'httpRequest' | 'messageNode' | 'jsonHttpResponse' | 'ifNode'
 
 // Core
 export type JsonFlowSpec = {
