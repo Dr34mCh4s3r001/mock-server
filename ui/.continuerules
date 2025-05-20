@@ -1,0 +1,10 @@
+Whenever you write React code, make sure to:
+• Use TypeScript.
+• Use .tsx files.
+• Use functional components by define export default function instead of class components.
+• Use hooks for state management.
+• Define interfaces for component props.
+• Use Tailwind CSS for styling.
+• Use ShadCN components.
+• Modularize components into smaller, reusable pieces.
+• Provide only code and explanations—do not include installation instructions.
