@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
-import { Menu, Puzzle, X } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
-import type { LayoutType } from "@/page/Editor";
-import type { Endpoint } from "@/data";
-import EndpointItemLabel from "../endpoint/EndpointItemLabel";
+import { cn } from '@/lib/utils';
+import { Button } from '../ui/button';
+import { Menu, Puzzle, X } from 'lucide-react';
+import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
+import type { LayoutType } from '@/page/Editor';
+import type { Endpoint } from '@/data';
+import EndpointItemLabel from '../endpoint/EndpointItemLabel';
 
 interface EditorNavigatorProps {
   className?: string;
@@ -28,7 +28,7 @@ export default function EditorNavigator({
   selectedEndpoint,
 }: EditorNavigatorProps) {
   return (
-    <nav className={cn("bg-transparent text-white p-4", className)}>
+    <nav className={cn('bg-transparent text-white p-4', className)}>
       <div className="flex justify-between items-center">
         {/* Endpoint bar */}
         <div className="menu-bar">
@@ -36,10 +36,7 @@ export default function EditorNavigator({
             {isEndpointDrawerOpen ? <X /> : <Menu />}
           </Button>
           {selectedEndpoint && (
-            <EndpointItemLabel
-              method={selectedEndpoint.method}
-              path={selectedEndpoint.path}
-            />
+            <EndpointItemLabel method={selectedEndpoint.method} path={selectedEndpoint.path} />
           )}
         </div>
 
@@ -50,9 +47,7 @@ export default function EditorNavigator({
           <div className="menu-bar">
             <Tabs
               defaultValue={selectedLayoutType}
-              onValueChange={(value) =>
-                setSelectedLayoutType(value as LayoutType)
-              }
+              onValueChange={(value) => setSelectedLayoutType(value as LayoutType)}
             >
               <TabsList>
                 <TabsTrigger value="visual">Visual</TabsTrigger>
@@ -68,11 +63,7 @@ export default function EditorNavigator({
         {selectedEndpoint && (
           <div className="menu-bar">
             <Button>Save</Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleNodeToolBoxDrawer}
-            >
+            <Button variant="outline" size="icon" onClick={toggleNodeToolBoxDrawer}>
               {isNodeToolBoxDrawerOpen ? <X /> : <Puzzle />}
             </Button>
           </div>

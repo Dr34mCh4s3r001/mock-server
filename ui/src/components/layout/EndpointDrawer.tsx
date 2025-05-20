@@ -1,5 +1,5 @@
-import { MOCK_ENDPOINT, type Endpoint } from "@/data";
-import EndpointItem from "../endpoint/EndpointItem";
+import { MOCK_ENDPOINT, type Endpoint } from '@/data';
+import EndpointItem from '../endpoint/EndpointItem';
 
 interface EndpointDrawerProps {
   isOpen: boolean;
@@ -26,7 +26,7 @@ export default function EndpointDrawer({
 
   return (
     <aside
-      className={`drawer ${isOpen ? "drawer-open" : ""}
+      className={`drawer ${isOpen ? 'drawer-open' : ''}
     `}
     >
       <div className="p-4">

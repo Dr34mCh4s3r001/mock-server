@@ -1,6 +1,6 @@
-import type { HttpMethod } from "@/data";
-import EndpointItemLabel from "./EndpointItemLabel";
-import { cn } from "@/lib/utils";
+import type { HttpMethod } from '@/data';
+import EndpointItemLabel from './EndpointItemLabel';
+import { cn } from '@/lib/utils';
 
 interface EndpointItemProps {
   method: HttpMethod;
@@ -18,8 +18,8 @@ export default function EndpointItem({
   return (
     <div
       className={cn(
-        "flex px-4 py-2 space-x-2 cursor-pointer hover:bg-gray-50",
-        active && "bg-blue-100 font-semibold"
+        'flex px-4 py-2 space-x-2 cursor-pointer hover:bg-gray-50',
+        active && 'bg-blue-100 font-semibold',
       )}
       onClick={onSelect}
     >

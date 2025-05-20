@@ -1,62 +1,59 @@
 {
-    "$schema": "../schema/flow-schema.json",
-    "info": {
-        "name": "Example Two"
+  "$schema": "../schema/flow-schema.json",
+  "info": {
+    "name": "Example Two"
+  },
+  "nodes": [
+    {
+      "id": "TestWebHook",
+      "node": "http-request",
+      "type": "start",
+      "config": {
+        "method": "GET",
+        "path": "/otp/two/:id"
+      },
+      "next": "ShowStart"
     },
-    "nodes": [
-        {
-            "id": "TestWebHook",
-            "node": "http-request",
-            "type": "start",
-            "config": {
-                "method": "GET",
-                "path": "/otp/two/:id"
-            },
-            "next": "ShowStart"
-        },
-        {
-            "id": "ShowStart",
-            "node": "log-console",
-            "type": "action",
-            "config": {
-                "message": "This is flow 2"
-            },
-            "next": "IfIdExist"
-        },
-        {
-            "id": "IfIdExist",
-            "node": "cond-string-eval",
-            "type": "condition",
-            "config": {
-                "ctxEvalFunc": "ctx.pathParams.id === '1' ? 'RespondSuccess' : 'RespondError'",
-                "nextNodes": [
-                    "RespondSuccess",
-                    "RespondError"
-                ]
-            }
-        },
-        {
-            "id": "RespondSuccess",
-            "node": "http-json-res",
-            "type": "action",
-            "config": {
-                "httpStatus": 201,
-                "json": {
-                    "ref": "ADDBB",
-                    "session": "otptwo"
-                }
-            }
-        },
-        {
-            "id": "RespondError",
-            "node": "http-json-res",
-            "type": "action",
-            "config": {
-                "httpStatus": 400,
-                "json": {
-                    "code": "BANNED_ID"
-                }
-            }
+    {
+      "id": "ShowStart",
+      "node": "log-console",
+      "type": "action",
+      "config": {
+        "message": "This is flow 2"
+      },
+      "next": "IfIdExist"
+    },
+    {
+      "id": "IfIdExist",
+      "node": "cond-string-eval",
+      "type": "condition",
+      "config": {
+        "ctxEvalFunc": "ctx.pathParams.id === '1' ? 'RespondSuccess' : 'RespondError'",
+        "nextNodes": ["RespondSuccess", "RespondError"]
+      }
+    },
+    {
+      "id": "RespondSuccess",
+      "node": "http-json-res",
+      "type": "action",
+      "config": {
+        "httpStatus": 201,
+        "json": {
+          "ref": "ADDBB",
+          "session": "otptwo"
         }
-    ]
+      }
+    },
+    {
+      "id": "RespondError",
+      "node": "http-json-res",
+      "type": "action",
+      "config": {
+        "httpStatus": 400,
+        "json": {
+          "code": "BANNED_ID"
+        }
+      }
+    }
+  ]
 }

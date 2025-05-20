@@ -1,23 +1,20 @@
-import { ActionNode } from "../core/action-node"
-import { BaseNodeSpec } from "../node"
+import { ActionNode } from '../core/action-node';
+import { BaseNodeSpec } from '../node';
 
 export type ConsoleLogSpec = BaseNodeSpec & {
-    node: 'log-console',
-    type: 'action',
-    config: ConsoleLogConfig
-}
+  node: 'log-console';
+  type: 'action';
+  config: ConsoleLogConfig;
+};
 
 type ConsoleLogConfig = {
-    message: string
-}
-
+  message: string;
+};
 
 export function ConsoleLogNode(spec: ConsoleLogSpec): ActionNode {
-    const action = async () => { console.log(spec.config.message) }
-    const node = new ActionNode(
-        spec.id,
-        spec.next,
-        action
-    )
-    return node
+  const action = async () => {
+    console.log(spec.config.message);
+  };
+  const node = new ActionNode(spec.id, spec.next, action);
+  return node;
 }

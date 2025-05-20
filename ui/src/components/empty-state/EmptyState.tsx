@@ -4,11 +4,7 @@ interface EmptyStateProps {
   description: string;
 }
 
-export default function EmptyState({
-  icon,
-  title,
-  description,
-}: EmptyStateProps) {
+export default function EmptyState({ icon, title, description }: EmptyStateProps) {
   return (
     <div className="flex flex-col justify-center items-center bg-gray-100 w-full h-full">
       <img src={icon} width="300px" />

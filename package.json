@@ -9,7 +9,9 @@
     "start": "node dist/index.js",
     "gen-schema": "npx typescript-json-schema src/node/flow.ts FlowSpec -o schema/flow-schema.json",
     "gen-server": "ts-node-dev src/gen-server.ts && npm run ignore-generated",
-    "ignore-generated": "git update-index --assume-unchanged src/http-req-flow-routes.ts"
+    "ignore-generated": "git update-index --assume-unchanged src/http-req-flow-routes.ts",
+    "format:check": "npx prettier --check . || (echo \"❌ Code not formatted! Run 'npm run format'\" && exit 1)",
+    "format": "npx prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.18",
+    "prettier": "^3.5.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3",
     "typescript-json-schema": "^0.65.1"

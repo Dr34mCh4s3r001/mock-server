@@ -1,5 +1,5 @@
-import { NODE_TOOL } from "@/data";
-import NodeItem from "../node/NodeItem";
+import { NODE_TOOL } from '@/data';
+import NodeItem from '../node/NodeItem';
 
 interface NodeToolboxDrawerProps {
   isOpen: boolean;
@@ -7,17 +7,14 @@ interface NodeToolboxDrawerProps {
 }
 
 export default function NodeToolboxDrawer({ isOpen }: NodeToolboxDrawerProps) {
-  const onDragStart = (
-    event: React.DragEvent<HTMLDivElement>,
-    nodeType: string
-  ) => {
-    event.dataTransfer.setData("application/reactflow", nodeType);
-    event.dataTransfer.effectAllowed = "move";
+  const onDragStart = (event: React.DragEvent<HTMLDivElement>, nodeType: string) => {
+    event.dataTransfer.setData('application/reactflow', nodeType);
+    event.dataTransfer.effectAllowed = 'move';
   };
 
   return (
     <aside
-      className={`drawer ${isOpen ? "drawer-open" : ""}
+      className={`drawer ${isOpen ? 'drawer-open' : ''}
     `}
     >
       <div className="p-4">
@@ -25,16 +22,8 @@ export default function NodeToolboxDrawer({ isOpen }: NodeToolboxDrawerProps) {
       </div>
 
       {NODE_TOOL.map((node) => (
-        <div
-          key={node.type}
-          draggable
-          onDragStart={(event) => onDragStart(event, node.type)}
-        >
-          <NodeItem
-            title={node.title}
-            description={node.description}
-            icon={node.icon}
-          ></NodeItem>
+        <div key={node.type} draggable onDragStart={(event) => onDragStart(event, node.type)}>
+          <NodeItem title={node.title} description={node.description} icon={node.icon}></NodeItem>
         </div>
       ))}
     </aside>

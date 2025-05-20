@@ -9,8 +9,8 @@ import {
   useReactFlow,
   applyNodeChanges,
   applyEdgeChanges,
-} from "@xyflow/react";
-import React, { useCallback, useState } from "react";
+} from '@xyflow/react';
+import React, { useCallback, useState } from 'react';
 
 // TODO resolve this in react way
 let id = 0;
@@ -24,16 +24,16 @@ export default function EndpointVisual() {
 
   const onNodesChange = useCallback(
     (changes: any) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes]
+    [setNodes],
   );
   const onEdgesChange = useCallback(
     (changes: any) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [setEdges]
+    [setEdges],
   );
 
   const onDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    const nodeType = event.dataTransfer.getData("application/reactflow");
+    const nodeType = event.dataTransfer.getData('application/reactflow');
     if (!nodeType) return;
 
     const position = screenToFlowPosition({
@@ -53,7 +53,7 @@ export default function EndpointVisual() {
 
   const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
+    event.dataTransfer.dropEffect = 'move';
   };
 
   return (

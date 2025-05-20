@@ -1,5 +1,5 @@
 // import { exampleJson, generateFromJson, generateNodes } from "./generator/json-flow-spec";
-import { httpFlowResolver, reloadHttpReqFlowCache } from "./http-flow";
+import { httpFlowResolver, reloadHttpReqFlowCache } from './http-flow';
 // import { router as httpReqFlowRouter } from "./http-req-flow-routes";
 // import { ActionNode } from "./node/action-node";
 // import { FlowExecutor } from "./node/flow-executor";
@@ -60,7 +60,7 @@ import { httpFlowResolver, reloadHttpReqFlowCache } from "./http-flow";
 //     }),
 //   };
 // }
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express';
 
 const app = express();
 const port = 3000;
@@ -68,8 +68,8 @@ const port = 3000;
 // middleware
 app.use(express.json());
 
-app.get("/hello", (req: Request, res: Response) => {
-  res.send("Hello world!");
+app.get('/hello', (req: Request, res: Response) => {
+  res.send('Hello world!');
 });
 
 // app.get("/mock/age/:age", async (req: Request, res: Response) => {
@@ -80,15 +80,15 @@ app.get("/hello", (req: Request, res: Response) => {
 //   res.send(result);
 // });
 
-app.get("/reload_cache", async(req: Request, res: Response)=>{
-  reloadHttpReqFlowCache()
-  res.status(200).send('Reload done')
-})
+app.get('/reload_cache', async (req: Request, res: Response) => {
+  reloadHttpReqFlowCache();
+  res.status(200).send('Reload done');
+});
 
 // app.use("/", httpReqFlowRouter)
-app.use("/", async (req, res) => {
-  await httpFlowResolver(req, res)
-})
+app.use('/', async (req, res) => {
+  await httpFlowResolver(req, res);
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

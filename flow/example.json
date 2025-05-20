@@ -1,39 +1,39 @@
 {
-    "$schema": "../schema/flow-schema.json",
-    "info": {
-        "name": "Example Flow"
+  "$schema": "../schema/flow-schema.json",
+  "info": {
+    "name": "Example Flow"
+  },
+  "nodes": [
+    {
+      "id": "GetOTPRequest",
+      "node": "http-request",
+      "type": "start",
+      "config": {
+        "path": "/otp/new",
+        "method": "GET"
+      },
+      "next": "ShowStart"
     },
-    "nodes": [
-        {
-            "id": "GetOTPRequest",
-            "node": "http-request",
-            "type": "start",
-            "config": {
-                "path": "/otp/new",
-                "method": "GET"
-            },
-            "next": "ShowStart"
-        },
-        {
-            "id": "ShowStart",
-            "node": "log-console",
-            "type": "action",
-            "config": {
-                "message": "This is example"
-            },
-            "next": "mockResOTP"
-        },
-        {
-            "id": "mockResOTP",
-            "node": "http-json-res",
-            "type": "action",
-            "config": {
-                "httpStatus": 201,
-                "json": {
-                    "ref": "ADDBB",
-                    "session": "sdkfjeln"
-                }
-            }
+    {
+      "id": "ShowStart",
+      "node": "log-console",
+      "type": "action",
+      "config": {
+        "message": "This is example"
+      },
+      "next": "mockResOTP"
+    },
+    {
+      "id": "mockResOTP",
+      "node": "http-json-res",
+      "type": "action",
+      "config": {
+        "httpStatus": 201,
+        "json": {
+          "ref": "ADDBB",
+          "session": "sdkfjeln"
         }
-    ]
+      }
+    }
+  ]
 }

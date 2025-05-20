@@ -1,230 +1,219 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "definitions": {
-        "ConsoleLogSpec": {
-            "allOf": [
-                {
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "next": {
-                            "type": "string"
-                        },
-                        "type": {
-                            "$ref": "#/definitions/NodeType"
-                        }
-                    },
-                    "type": "object"
-                },
-                {
-                    "properties": {
-                        "config": {
-                            "properties": {
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "node": {
-                            "const": "log-console",
-                            "type": "string"
-                        },
-                        "type": {
-                            "const": "action",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "ConsoleLogSpec": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "next": {
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/definitions/NodeType"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "config": {
+              "properties": {
+                "message": {
+                  "type": "string"
                 }
-            ]
-        },
-        "FeatureNodeSpec": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/StringEvalSpec"
-                },
-                {
-                    "$ref": "#/definitions/HttpJsonResSpec"
-                },
-                {
-                    "$ref": "#/definitions/ConsoleLogSpec"
-                },
-                {
-                    "$ref": "#/definitions/HttpRequestSpec"
-                }
-            ]
-        },
-        "HTTPMethod": {
-            "enum": [
-                "DELETE",
-                "GET",
-                "PATCH",
-                "POST",
-                "PUT"
-            ],
-            "type": "string"
-        },
-        "HttpJsonResSpec": {
-            "allOf": [
-                {
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "next": {
-                            "type": "string"
-                        },
-                        "type": {
-                            "$ref": "#/definitions/NodeType"
-                        }
-                    },
-                    "type": "object"
-                },
-                {
-                    "properties": {
-                        "config": {
-                            "properties": {
-                                "httpStatus": {
-                                    "type": "number"
-                                },
-                                "json": {
-                                    "additionalProperties": true,
-                                    "properties": {},
-                                    "type": "object"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "node": {
-                            "const": "http-json-res",
-                            "type": "string"
-                        },
-                        "type": {
-                            "const": "action",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                }
-            ]
-        },
-        "HttpRequestSpec": {
-            "allOf": [
-                {
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "next": {
-                            "type": "string"
-                        },
-                        "type": {
-                            "$ref": "#/definitions/NodeType"
-                        }
-                    },
-                    "type": "object"
-                },
-                {
-                    "properties": {
-                        "config": {
-                            "properties": {
-                                "method": {
-                                    "$ref": "#/definitions/HTTPMethod"
-                                },
-                                "path": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "next": {
-                            "type": "string"
-                        },
-                        "node": {
-                            "const": "http-request",
-                            "type": "string"
-                        },
-                        "type": {
-                            "const": "start",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                }
-            ]
-        },
-        "NodeType": {
-            "enum": [
-                "action",
-                "condition",
-                "start"
-            ],
-            "type": "string"
-        },
-        "StringEvalSpec": {
-            "allOf": [
-                {
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "next": {
-                            "type": "string"
-                        },
-                        "type": {
-                            "$ref": "#/definitions/NodeType"
-                        }
-                    },
-                    "type": "object"
-                },
-                {
-                    "properties": {
-                        "config": {
-                            "properties": {
-                                "ctxEvalFunc": {
-                                    "type": "string"
-                                },
-                                "nextNodes": {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "node": {
-                            "const": "cond-string-eval",
-                            "type": "string"
-                        },
-                        "type": {
-                            "const": "condition",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                }
-            ]
+              },
+              "type": "object"
+            },
+            "node": {
+              "const": "log-console",
+              "type": "string"
+            },
+            "type": {
+              "const": "action",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
+      ]
     },
-    "properties": {
-        "info": {
-            "properties": {
-                "name": {
+    "FeatureNodeSpec": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/StringEvalSpec"
+        },
+        {
+          "$ref": "#/definitions/HttpJsonResSpec"
+        },
+        {
+          "$ref": "#/definitions/ConsoleLogSpec"
+        },
+        {
+          "$ref": "#/definitions/HttpRequestSpec"
+        }
+      ]
+    },
+    "HTTPMethod": {
+      "enum": ["DELETE", "GET", "PATCH", "POST", "PUT"],
+      "type": "string"
+    },
+    "HttpJsonResSpec": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "next": {
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/definitions/NodeType"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "config": {
+              "properties": {
+                "httpStatus": {
+                  "type": "number"
+                },
+                "json": {
+                  "additionalProperties": true,
+                  "properties": {},
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "node": {
+              "const": "http-json-res",
+              "type": "string"
+            },
+            "type": {
+              "const": "action",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ]
+    },
+    "HttpRequestSpec": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "next": {
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/definitions/NodeType"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "config": {
+              "properties": {
+                "method": {
+                  "$ref": "#/definitions/HTTPMethod"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "next": {
+              "type": "string"
+            },
+            "node": {
+              "const": "http-request",
+              "type": "string"
+            },
+            "type": {
+              "const": "start",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ]
+    },
+    "NodeType": {
+      "enum": ["action", "condition", "start"],
+      "type": "string"
+    },
+    "StringEvalSpec": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "next": {
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/definitions/NodeType"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "config": {
+              "properties": {
+                "ctxEvalFunc": {
+                  "type": "string"
+                },
+                "nextNodes": {
+                  "items": {
                     "type": "string"
+                  },
+                  "type": "array"
                 }
+              },
+              "type": "object"
             },
-            "type": "object"
-        },
-        "nodes": {
-            "items": {
-                "$ref": "#/definitions/FeatureNodeSpec"
+            "node": {
+              "const": "cond-string-eval",
+              "type": "string"
             },
-            "type": "array"
+            "type": {
+              "const": "condition",
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
+      ]
+    }
+  },
+  "properties": {
+    "info": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
-    "type": "object"
+    "nodes": {
+      "items": {
+        "$ref": "#/definitions/FeatureNodeSpec"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
 }
-

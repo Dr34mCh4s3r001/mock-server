@@ -1,4 +1,4 @@
-import { CircleSmall, Play } from "lucide-react";
+import { CircleSmall, Play } from 'lucide-react';
 
 export interface NodeTool {
   icon: React.ReactNode;
@@ -10,23 +10,23 @@ export interface NodeTool {
 export const NODE_TOOL: NodeTool[] = [
   {
     icon: <Play />,
-    title: "Input",
-    type: "input",
-    description: "Data received for processing in this node",
+    title: 'Input',
+    type: 'input',
+    description: 'Data received for processing in this node',
   },
   {
     icon: <CircleSmall />,
-    title: "Output",
-    type: "output",
-    description: "Data produced after processing by this node",
+    title: 'Output',
+    type: 'output',
+    description: 'Data produced after processing by this node',
   },
 ];
 
 export enum HttpMethod {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
 }
 
 export interface Endpoint {
@@ -37,14 +37,14 @@ export interface Endpoint {
 export const MOCK_ENDPOINT: Endpoint[] = [
   {
     method: HttpMethod.GET,
-    path: "/api/data",
+    path: '/api/data',
   },
   {
     method: HttpMethod.POST,
-    path: "/api/data",
+    path: '/api/data',
   },
   {
     method: HttpMethod.DELETE,
-    path: "/api/data/:id",
+    path: '/api/data/:id',
   },
 ];

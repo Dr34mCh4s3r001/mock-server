@@ -1,9 +1,9 @@
 // import { FeatureNodeType } from "./features";
 
-import { FeatureNodeType } from "./features";
+import { FeatureNodeType } from './features';
 
-export type NodeType = "start" | "action" | "condition";
-export type NodeId = string
+export type NodeType = 'start' | 'action' | 'condition';
+export type NodeId = string;
 
 export interface WorkFlowNode {
   id: string;
@@ -13,8 +13,8 @@ export interface WorkFlowNode {
 }
 
 export type BaseNodeSpec = {
-    id: NodeId
-    // node: FeatureNodeType // this will be auto parsed by TS
-    type: NodeType
-    next?: NodeId
-}
+  id: NodeId;
+  // node: FeatureNodeType // this will be auto parsed by TS
+  type: NodeType;
+  next?: NodeId;
+};
