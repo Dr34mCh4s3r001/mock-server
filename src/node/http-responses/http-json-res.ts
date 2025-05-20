@@ -1,5 +1,5 @@
 import { Response } from "express"
-import { ActionNode } from "../action-node"
+import { ActionNode } from "../core/action-node"
 import { BaseNodeSpec } from "../node"
 
 export function HttpJsonResNode(spec: HttpJsonResSpec) {

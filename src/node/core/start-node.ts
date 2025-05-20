@@ -1,9 +1,10 @@
-import { NodeType, WorkFlowNode } from "./node";
+import { NodeId, NodeType, WorkFlowNode } from "../node"
+
 
 export class StartNode<T> implements WorkFlowNode {
     public type: NodeType = "start"
     constructor(
-        public id: string,
+        public id: NodeId,
         public next?: string, // ? do we really require this ???
         private validateContext?: (context: any) => Promise<boolean>
     ) { }

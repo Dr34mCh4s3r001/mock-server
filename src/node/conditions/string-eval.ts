@@ -1,4 +1,4 @@
-import { ConditionNode } from "../condition-node"
+import { ConditionNode } from "../core/condition-node"
 import { BaseNodeSpec } from "../node"
 
 

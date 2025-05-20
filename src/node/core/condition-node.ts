@@ -1,5 +1,5 @@
+import { NodeId, NodeType, WorkFlowNode } from "../node";
 
-import { NodeId, NodeType, WorkFlowNode } from "./node";
 
 export class ConditionNode implements WorkFlowNode {
     public readonly type: NodeType = "condition";

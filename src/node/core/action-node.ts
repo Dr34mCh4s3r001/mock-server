@@ -1,4 +1,5 @@
-import { NodeId, NodeType, WorkFlowNode } from "./node";
+import { NodeId, NodeType, WorkFlowNode } from "../node";
+
 
 export class ActionNode implements WorkFlowNode {
   public type: NodeType = "action"

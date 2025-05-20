@@ -1,6 +1,6 @@
 import { HTTPMethod } from "../../utils/types";
+import { StartNode } from "../core/start-node";
 import { BaseNodeSpec, NodeId } from "../node";
-import { StartNode } from "../start-node";
 import { Request, Response } from "express";
 
 type HttpRequestNodeCtx = {

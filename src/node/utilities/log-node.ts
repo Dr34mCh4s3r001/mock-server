@@ -1,4 +1,4 @@
-import { ActionNode } from "../action-node"
+import { ActionNode } from "../core/action-node"
 import { BaseNodeSpec } from "../node"
 
 export type ConsoleLogSpec = BaseNodeSpec & {
