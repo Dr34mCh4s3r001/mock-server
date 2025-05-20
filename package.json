@@ -2,11 +2,11 @@
   "name": "mock-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "dev": "ts-node-dev --respawn src/main.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/main.js",
     "gen-schema": "npx typescript-json-schema src/node/flow.ts FlowSpec -o schema/flow-schema.json",
     "gen-server": "ts-node-dev src/gen-server.ts && npm run ignore-generated",
     "ignore-generated": "git update-index --assume-unchanged src/http-req-flow-routes.ts",
@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "express": "^5.1.0"
   },
   "devDependencies": {
