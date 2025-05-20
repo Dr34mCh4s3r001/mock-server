@@ -33,9 +33,11 @@ export class FlowConfigService {
 
     const httpFlowSpec = this.getHttpFlowSpec(flow);
 
-    return {
+    this.flow = {
       httpFlowSpec,
     };
+
+    return this.flow;
   }
 
   private getHttpFlowSpec(flows: string[]): FlowSpec[] {
