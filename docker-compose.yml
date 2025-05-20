@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - '3002:3000'
+    volumes:
+      - ./flow:/app/flow
+    environment:
+      TZ: Asia/Bangkok
+      FLOW_DIR: /app/flow
