@@ -1,11 +1,11 @@
 {
   "$schema": "../schema/flow-schema.json",
   "info": {
-    "name": "Example Flow"
+    "name": "Example Static json Flow"
   },
   "nodes": [
     {
-      "id": "GetOTPRequest",
+      "id": "StaticJsonExample",
       "node": "http-request",
       "type": "start",
       "config": {
@@ -21,18 +21,15 @@
       "config": {
         "message": "This is example"
       },
-      "next": "mockResOTP"
+      "next": "staticRes"
     },
     {
-      "id": "mockResOTP",
-      "node": "http-json-res",
+      "id": "staticRes",
+      "node": "http-json-file-res",
       "type": "action",
       "config": {
-        "httpStatus": 201,
-        "json": {
-          "ref": "ADDBB",
-          "session": "sdkfjeln"
-        }
+        "httpStatus": 200,
+        "file": "example_resource.json"
       }
     }
   ]

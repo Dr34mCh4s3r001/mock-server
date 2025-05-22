@@ -3,6 +3,7 @@ import { HttpJsonResNode, HttpJsonResSpec } from './http-responses/http-json-res
 import { ConsoleLogNode, ConsoleLogSpec } from './utilities/log-node';
 import { BaseNodeSpec, WorkFlowNode } from './node';
 import { HttpRequestNode, HttpRequestSpec } from './starts/http-request';
+import { HttpJsonFileResNode, HttpJsonFileResSpec } from './http-responses/http-json-file-res';
 
 // function
 export function generateNode(spec: FeatureNodeSpec) {
@@ -31,7 +32,8 @@ export const NodeGenerator: NodeGeneratorMap = {
   'cond-string-eval': StringEvalNode,
   'http-json-res': HttpJsonResNode,
   'log-console': ConsoleLogNode,
+  "http-json-file-res": HttpJsonFileResNode
 };
 
 export type FeatureNodeType = FeatureNodeSpec['node'];
-export type FeatureNodeSpec = HttpRequestSpec | StringEvalSpec | HttpJsonResSpec | ConsoleLogSpec;
+export type FeatureNodeSpec = HttpRequestSpec | StringEvalSpec | HttpJsonResSpec | ConsoleLogSpec | HttpJsonFileResSpec;
