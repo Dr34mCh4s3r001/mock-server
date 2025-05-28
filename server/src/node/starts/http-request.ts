@@ -1,5 +1,6 @@
 import { HTTPMethod } from '../../utils/types';
 import { StartNode } from '../core/start-node';
+import { FlowContext } from '../flow-executor';
 import { BaseNodeSpec, NodeId } from '../node';
 import { Request, Response } from 'express';
 
@@ -22,11 +23,12 @@ type HttpRequestNodeConfig = {
 };
 
 export function HttpRequestNode(spec: HttpRequestSpec): StartNode<HttpRequestNodeCtx> {
-  async function validateCtx(ctx: any) {
+  async function validateCtx(ctx: FlowContext) {
     if (!ctx.req || !ctx.res) {
       return false;
     }
     return true;
   }
+  
   return new StartNode<HttpRequestNodeCtx>(spec.id, spec.next, validateCtx);
 }

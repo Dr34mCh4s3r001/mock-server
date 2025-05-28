@@ -1,6 +1,4 @@
-// import { FeatureNodeType } from "./features";
-
-import { FeatureNodeType } from './features';
+import { FlowContext } from './type';
 
 export type NodeType = 'start' | 'action' | 'condition';
 export type NodeId = string;
@@ -9,7 +7,7 @@ export interface WorkFlowNode {
   id: string;
   type: NodeType;
   next?: string | string[]; // สำหรับ if อาจเป็น [truePath, falsePath]
-  evaluate(context: any): Promise<void>; // หรือ return ค่าอะไรก็ได้
+  evaluate(context: FlowContext): Promise<void>; // หรือ return ค่าอะไรก็ได้
 }
 
 export type BaseNodeSpec = {

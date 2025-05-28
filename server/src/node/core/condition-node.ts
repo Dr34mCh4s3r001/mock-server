@@ -1,3 +1,4 @@
+import { FlowContext } from '../flow-executor';
 import { NodeId, NodeType, WorkFlowNode } from '../node';
 
 export class ConditionNode implements WorkFlowNode {
@@ -6,10 +7,10 @@ export class ConditionNode implements WorkFlowNode {
   constructor(
     public id: string,
     public next: string | string[], // this will be string after resolved
-    private condition: (context: any) => Promise<NodeId>,
+    private condition: (context: FlowContext) => Promise<NodeId>,
   ) {}
 
-  async evaluate(context: any): Promise<void> {
+  async evaluate(context: FlowContext): Promise<void> {
     const nextNodeId = await this.condition(context);
     // make sure the node exist assume next is a list when evaluate
     // todo: this might not needed

@@ -15,8 +15,4 @@ export class AppConfig {
     this.flowDir = process.env.FLOW_DIR || path.resolve(process.cwd(), 'flow');
     this.resourceDir = process.env.RESOURCE_DIR || path.resolve(process.cwd(), 'flow/resource');
   }
-
-  isProd(): boolean {
-    return this.env === 'production';
-  }
 }

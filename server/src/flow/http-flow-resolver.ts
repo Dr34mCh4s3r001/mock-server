@@ -3,8 +3,10 @@ import { FlowSpec, generateFlow } from '../node/flow';
 import { FlowExecutor } from '../node/flow-executor';
 import { match } from 'path-to-regexp';
 import { HTTPMethod } from '../utils/types';
+import { AppConfig } from '../app-config';
 
 export async function resolveHttpFlow(
+  config: AppConfig,
   httpFlowSpec: FlowSpec[],
   req: Request,
   res: Response,
@@ -28,7 +30,7 @@ export async function resolveHttpFlow(
   const flow = generateFlow(flowSpec);
   const flowEx = new FlowExecutor(flow, startNode.id);
 
-  const result = await flowEx.run({ req, pathParams, res });
+  const result = await flowEx.run({ config, req, pathParams, res });
 
   return result;
 }

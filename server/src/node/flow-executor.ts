@@ -1,4 +1,11 @@
+import { AppConfig } from '../app-config';
 import { NodesFlow } from './flow';
+
+export type FlowContext<T = {}> = T & {
+  config: AppConfig
+} & {
+  [key: string]: any;
+};
 
 export class FlowExecutor {
   constructor(
@@ -6,7 +13,7 @@ export class FlowExecutor {
     private startId: string,
   ) {}
 
-  async run(context: any = {}): Promise<any> {
+  async run(context: FlowContext): Promise<any> {
     let currentId = this.startId;
 
     while (currentId) {

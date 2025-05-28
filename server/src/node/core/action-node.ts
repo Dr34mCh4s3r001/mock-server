@@ -1,3 +1,4 @@
+import { FlowContext } from '../flow-executor';
 import { NodeId, NodeType, WorkFlowNode } from '../node';
 
 export class ActionNode implements WorkFlowNode {
@@ -5,10 +6,10 @@ export class ActionNode implements WorkFlowNode {
   constructor(
     public id: NodeId,
     public next?: string,
-    private action?: (context: any) => Promise<void>,
+    private action?: (context: FlowContext) => Promise<void>,
   ) {}
 
-  async evaluate(context: any) {
+  async evaluate(context: FlowContext) {
     const action = this.action;
 
     if (!action) {

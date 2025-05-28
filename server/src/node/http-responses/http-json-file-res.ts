@@ -9,8 +9,7 @@ export function HttpJsonFileResNode(spec: HttpJsonFileResSpec) {
   return new ActionNode(spec.id, spec.next, async (ctx) => {
     const res = ctx.res as Response;
 
-    // todo: need to get the folder path from the service context ??
-    const resourceDir = process.env.RESOURCE_DIR || path.resolve(process.cwd(), 'flow/resource')
+    const { resourceDir } = ctx.config;
     const filePath = path.resolve(resourceDir, spec.config.file)
     const raw = fs.readFileSync(filePath, 'utf-8');
     const json = JSON.parse(raw);

@@ -3,7 +3,7 @@ import { resolveHttpFlow } from './flow';
 import { Dependencies } from './di';
 
 export function createApp(deps: Dependencies) {
-  const { flowConfigService } = deps;
+  const { config, flowConfigService } = deps;
 
   const app = express();
 
@@ -14,7 +14,7 @@ export function createApp(deps: Dependencies) {
     res.send('Reloaded');
   });
 
-  app.use('/', (req, res) => resolveHttpFlow(flowConfigService.getFlow().httpFlowSpec, req, res));
+  app.use('/', (req, res) => resolveHttpFlow(config, flowConfigService.getFlow().httpFlowSpec, req, res));
 
   return app;
 }
