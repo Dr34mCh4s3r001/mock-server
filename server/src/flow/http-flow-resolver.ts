@@ -19,7 +19,7 @@ export async function resolveHttpFlow(
   const flowSearch = httpFlowSpec.filter((flow) => findMatchPath(method, path, flow));
 
   if (flowSearch.length !== 1) {
-    res.status(404).send('Cannot find flow match the path and/or method');
+    res.status(404).json({ error: 'Cannot find flow match the path and/or method' });
     return;
   }
 

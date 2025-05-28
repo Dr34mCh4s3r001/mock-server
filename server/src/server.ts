@@ -11,7 +11,7 @@ export function createApp(deps: Dependencies) {
 
   app.get('/flow/reload', (req, res) => {
     flowConfigService.reload();
-    res.send('Reloaded');
+    res.json({ message: 'Reloaded' })
   });
 
   app.use('/', (req, res) => resolveHttpFlow(config, flowConfigService.getFlow().httpFlowSpec, req, res));
